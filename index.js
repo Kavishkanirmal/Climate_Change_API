@@ -1,4 +1,4 @@
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
@@ -19,6 +19,51 @@ const newspapers =[
         name:'telegraph',
         address: 'https://www.telegraph.co.uk/climate-change/',
         base: 'https://www.telegraph.co.uk'
+    },
+    {
+        name:'bbc',
+        address: 'https://www.bbc.co.uk/news/science_and_environment',
+        base: 'https://www.bbc.co.uk'
+    },
+    {
+        name:'es',
+        address: 'https://www.standard.co.uk/topic/climate-change',
+        base: 'https://www.standard.co.uk'
+    },
+    {
+        name:'sun',
+        address: 'https://www.thesun.co.uk/topic/climate-change-environment/',
+        base: ''
+    },
+    {
+        name:'dm',
+        address: 'https://www.dailymail.co.uk/news/climate_change_global_warming/index.html',
+        base: ''
+    },
+    {
+        name:'nyp',
+        address: 'https://nypost.com/tag/climate-change/',
+        base: ''
+    },
+    {
+        name:'smh',
+        address: 'https://www.smh.com.au/environment/climate-change',
+        base: 'https://www.smh.com.au'
+    },
+    {
+        name:'latimes',
+        address: 'https://www.latimes.com/environment',
+        base: ''
+    },
+    {
+        name:'nyt',
+        address: 'https://www.nytimes.com/international/section/climate',
+        base: ''
+    },
+    {
+        name:'cityam',
+        address: 'https://www.cityam.com/london-must-become-a-world-leader-on-climate-change-action/',
+        base: ''
     }
 ]
 
@@ -52,7 +97,7 @@ app.get('/news', (req, res) => {
     res.json(articles)
 })
 
-app.get('/news/:newspaperId', async(req, res) =>{
+app.get('/news/:newspaperId', (req, res) =>{
     const newspaperId = req.params.newspaperId
    
     const newspaperAddress = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].address
